@@ -1,0 +1,7 @@
+{
+  "name": "QA Playground",
+  "description": "A comprehensive web application designed for quality assurance and testing purposes, featuring various UI elements, forms, dynamic content, and Gemini API interactions to facilitate thorough manual and automated testing with tools like Selenium.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
