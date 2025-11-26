@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+      // Get the current path from the URL.
+      const path = window.location.pathname;
+
+      // Preserve the path and search query, and redirect to index.html.
+      // This allows the client-side router to handle the route.
+      const newPath = '/QA-Playground/?p=' + path.substring(1) + window.location.search;
+      
+      // Redirect to the new path.
+      window.location.replace(newPath);
+    </script>
+  </head>
+  <body></body>
+</html>
