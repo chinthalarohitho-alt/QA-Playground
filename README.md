@@ -1,9 +1,5 @@
 # QA-Playground
 
-<div align="center">
-  <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 A comprehensive web application designed for quality assurance and testing purposes. It features various UI elements, forms, dynamic content, and Gemini API interactions to facilitate thorough manual and automated testing with tools like Selenium.
 
 This project is built with React and Vite.
