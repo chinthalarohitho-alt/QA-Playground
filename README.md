@@ -10,7 +10,6 @@ This project is built with React and Vite.
 *   **Dynamic Content**: Elements that change based on user interaction or API responses.
 *   **Forms**: Various form elements for testing data input and validation.
 *   **Data Visualization**: Charts and graphs powered by Recharts.
-*   **Gemini API Integration**: Demonstrates interaction with the Google Gemini API.
 *   **Built for Testing**: Designed to be a target for both manual and automated testing tools.
 
 ## Getting Started
