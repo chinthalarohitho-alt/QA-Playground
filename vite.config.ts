@@ -6,7 +6,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   
   return {
-    base: "/QA-Playground/",
     server: {
       port: 5173,
       host: '0.0.0.0',
