@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import Toast from '../components/Toast';
 
 interface LoginPageProps {
     onLogin: (email: string) => void;
@@ -12,6 +13,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({});
     const [isLoading, setIsLoading] = useState(false);
+    const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' | 'warning' | 'info' }>({
+        show: false,
+        message: '',
+        type: 'success',
+    });
 
     const validate = () => {
         const newErrors: { email?: string; password?: string } = {};
@@ -49,8 +55,20 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
             // Simulate API call
             setTimeout(() => {
                 setIsLoading(false);
-                // For demo purposes, any valid input logs in
-                onLogin(email);
+
+                // Simulate login failure for specific email
+                if (email === 'fail@error.com') {
+                    setToast({ show: true, message: 'Login failed: Invalid credentials. Please try again.', type: 'error' });
+                    return;
+                }
+
+                // Success case
+                setToast({ show: true, message: 'Login successful! Redirecting...', type: 'success' });
+
+                // Delay navigation to show toast
+                setTimeout(() => {
+                    onLogin(email);
+                }, 1500);
             }, 1000);
         }
     };
@@ -94,6 +112,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
                                         <span className="text-gray-400 text-xs">Blank Email:</span>
                                         <button type="button" onClick={() => setEmail(' ')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs italic text-gray-500">(space)</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs text-red-400">Login Failure:</span>
+                                        <button type="button" onClick={() => setEmail('fail@error.com')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs text-red-300" title="fail@error.com">fail@error.com</button>
                                     </li>
                                 </ul>
                             </div>
@@ -195,6 +217,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                     </div>
                 </div>
             </div>
+            <Toast
+                message={toast.message}
+                type={toast.type}
+                isVisible={toast.show}
+                onClose={() => setToast({ ...toast, show: false })}
+            />
         </div>
     );
 };
