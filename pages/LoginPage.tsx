@@ -39,6 +39,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
         } else if (password.length < 8) {
             newErrors.password = 'Password must be at least 8 characters';
             isValid = false;
+        } else if (!/[A-Z]/.test(password)) {
+            newErrors.password = 'Password must contain at least one uppercase letter';
+            isValid = false;
+        } else if (!/[a-z]/.test(password)) {
+            newErrors.password = 'Password must contain at least one lowercase letter';
+            isValid = false;
         } else if (!/[0-9]/.test(password)) {
             newErrors.password = 'Password must contain at least one number';
             isValid = false;
@@ -95,7 +101,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                         <p className="text-gray-300 mb-4 text-center">
                             Click an email below to auto-fill the form.
                             <br />
-                            (Password must be 8+ chars with number & special char).
+                            (Password must be 8+ chars with uppercase, lowercase, number & special char).
                         </p>
 
                         <div className="space-y-6">
@@ -133,16 +139,32 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                                         <button type="button" onClick={() => setPassword('StrongP@ss1')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">StrongP@ss1</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs">Weak (Short):</span>
-                                        <button type="button" onClick={() => setPassword('Pass1!')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">Pass1!</button>
+                                        <span className="text-gray-400 text-xs">No Numbers:</span>
+                                        <button type="button" onClick={() => setPassword('NoNumbers!')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">NoNumbers!</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs">Weak (No Special):</span>
-                                        <button type="button" onClick={() => setPassword('Password123')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">Password123</button>
+                                        <span className="text-gray-400 text-xs">Only Lower:</span>
+                                        <button type="button" onClick={() => setPassword('onlylowercase')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">onlylowercase</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs">Blank Password:</span>
-                                        <button type="button" onClick={() => setPassword(' ')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs italic text-gray-500">(space)</button>
+                                        <span className="text-gray-400 text-xs">Only Upper:</span>
+                                        <button type="button" onClick={() => setPassword('ONLYUPPERCASE')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">ONLYUPPERCASE</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">Only Numbers:</span>
+                                        <button type="button" onClick={() => setPassword('12345678')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">12345678</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">No Alphabets:</span>
+                                        <button type="button" onClick={() => setPassword('123456!@#')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">123456!@#</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">No Lowercase:</span>
+                                        <button type="button" onClick={() => setPassword('UPPER123!')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">UPPER123!</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">No Uppercase:</span>
+                                        <button type="button" onClick={() => setPassword('lower123!')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">lower123!</button>
                                     </li>
                                 </ul>
                             </div>
