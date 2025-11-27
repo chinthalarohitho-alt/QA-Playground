@@ -39,8 +39,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
         } else if (password.length < 8) {
             newErrors.password = 'Password must be at least 8 characters';
             isValid = false;
-        } else if (!/(?=.*[0-9])(?=.*[!@#$%^&*])/.test(password)) {
-            newErrors.password = 'Password must contain at least one number and one special character';
+        } else if (!/[0-9]/.test(password)) {
+            newErrors.password = 'Password must contain at least one number';
+            isValid = false;
+        } else if (!/[!@#$%^&*]/.test(password)) {
+            newErrors.password = 'Password must contain at least one special character';
             isValid = false;
         }
 
