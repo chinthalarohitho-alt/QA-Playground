@@ -30,8 +30,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
         if (!password) {
             newErrors.password = 'Password is required';
             isValid = false;
-        } else if (password.length < 6) {
-            newErrors.password = 'Password must be at least 6 characters';
+        } else if (password.length < 8) {
+            newErrors.password = 'Password must be at least 8 characters';
+            isValid = false;
+        } else if (!/(?=.*[0-9])(?=.*[!@#$%^&*])/.test(password)) {
+            newErrors.password = 'Password must contain at least one number and one special character';
             isValid = false;
         }
 
@@ -69,21 +72,54 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                         <p className="text-gray-300 mb-4 text-center">
                             Click an email below to auto-fill the form.
                             <br />
-                            (Any password with 6+ characters will work).
+                            (Password must be 8+ chars with number & special char).
                         </p>
-                        <ul className="space-y-3 text-gray-300">
-                            <li className="flex items-center gap-2">
-                                <strong className="flex-shrink-0">Automation:</strong>
-                                <button type="button" onClick={() => setEmail('AutomationTesting@carrer.com')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md text-left w-full transition-colors">AutomationTesting@carrer.com</button>
-                            </li>
-                            <li className="flex items-center gap-2">
-                                <strong className="flex-shrink-0">Manual Guide:</strong>
-                                <button type="button" onClick={() => setEmail('ManualTesting@carrer.com')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md text-left w-full transition-colors">ManualTesting@carrer.com</button>
-                            </li>
-                            <li className="flex items-center gap-2">
-                                <strong className="flex-shrink-0">API Testing:</strong> <button type="button" onClick={() => setEmail('ApiTesting@carrer.com')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md text-left w-full transition-colors">ApiTesting@carrer.com</button>
-                            </li>
-                        </ul>
+
+                        <div className="space-y-6">
+                            <div>
+                                <p className="text-xs text-gray-400 uppercase font-semibold mb-2 border-b border-gray-700 pb-1">Email Test Cases</p>
+                                <ul className="space-y-2 text-gray-300 text-sm">
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">Valid:</span>
+                                        <button type="button" onClick={() => setEmail('AutomationTesting@carrer.com')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs" title="AutomationTesting@carrer.com">AutomationTesting@carrer.com</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">Without @:</span>
+                                        <button type="button" onClick={() => setEmail('AutomationTest.com')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs" title="AutomationTest.com">AutomationTest.com</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">Without Domain:</span>
+                                        <button type="button" onClick={() => setEmail('AutomationTesting@')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs" title="AutomationTesting@">AutomationTesting@</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">Blank Email:</span>
+                                        <button type="button" onClick={() => setEmail(' ')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs italic text-gray-500">(space)</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <p className="text-xs text-gray-400 uppercase font-semibold mb-2 border-b border-gray-700 pb-1">Password Test Cases</p>
+                                <ul className="space-y-2 text-gray-300 text-sm">
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">Valid:</span>
+                                        <button type="button" onClick={() => setPassword('StrongP@ss1')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">StrongP@ss1</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">Weak (Short):</span>
+                                        <button type="button" onClick={() => setPassword('Pass1!')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">Pass1!</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">Weak (No Special):</span>
+                                        <button type="button" onClick={() => setPassword('Password123')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">Password123</button>
+                                    </li>
+                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
+                                        <span className="text-gray-400 text-xs">Blank Password:</span>
+                                        <button type="button" onClick={() => setPassword(' ')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs italic text-gray-500">(space)</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
