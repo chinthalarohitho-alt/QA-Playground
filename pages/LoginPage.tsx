@@ -191,7 +191,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                         <p className="text-gray-500">to access the QA Playground</p>
                     </div>
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} noValidate>
                         <Input
                             label="Email Address"
                             type="email"
