@@ -39,18 +39,22 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
         } else if (password.length < 8) {
             newErrors.password = 'Password must be at least 8 characters';
             isValid = false;
-        } else if (!/[A-Z]/.test(password)) {
-            newErrors.password = 'Password must contain at least one uppercase letter';
-            isValid = false;
-        } else if (!/[a-z]/.test(password)) {
-            newErrors.password = 'Password must contain at least one lowercase letter';
-            isValid = false;
-        } else if (!/[0-9]/.test(password)) {
-            newErrors.password = 'Password must contain at least one number';
-            isValid = false;
-        } else if (!/[!@#$%^&*]/.test(password)) {
-            newErrors.password = 'Password must contain at least one special character';
-            isValid = false;
+        } else {
+            const missing: string[] = [];
+            if (!/[A-Z]/.test(password)) missing.push('uppercase letter');
+            if (!/[a-z]/.test(password)) missing.push('lowercase letter');
+            if (!/[0-9]/.test(password)) missing.push('number');
+            if (!/[!@#$%^&*]/.test(password)) missing.push('special character');
+
+            if (missing.length > 0) {
+                if (missing.length === 1) {
+                    newErrors.password = `Password must contain at least one ${missing[0]}`;
+                } else {
+                    const last = missing.pop();
+                    newErrors.password = `Password must contain ${missing.join(', ')} and ${last}`;
+                }
+                isValid = false;
+            }
         }
 
         setErrors(newErrors);
@@ -139,15 +143,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                                         <button type="button" onClick={() => setPassword('StrongP@ss1')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">StrongP@ss1</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs">No Numbers:</span>
+                                        <span className="text-gray-400 text-xs">Without Numbers:</span>
                                         <button type="button" onClick={() => setPassword('NoNumbers!')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">NoNumbers!</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs">Only Lower:</span>
+                                        <span className="text-gray-400 text-xs">Only Low Caps:</span>
                                         <button type="button" onClick={() => setPassword('onlylowercase')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">onlylowercase</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs">Only Upper:</span>
+                                        <span className="text-gray-400 text-xs">Only Capital Caps:</span>
                                         <button type="button" onClick={() => setPassword('ONLYUPPERCASE')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">ONLYUPPERCASE</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
@@ -155,15 +159,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                                         <button type="button" onClick={() => setPassword('12345678')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">12345678</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs">No Alphabets:</span>
+                                        <span className="text-gray-400 text-xs">Without Alphabets:</span>
                                         <button type="button" onClick={() => setPassword('123456!@#')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">123456!@#</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs">No Lowercase:</span>
+                                        <span className="text-gray-400 text-xs">Without Lower Caps:</span>
                                         <button type="button" onClick={() => setPassword('UPPER123!')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">UPPER123!</button>
                                     </li>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs">No Uppercase:</span>
+                                        <span className="text-gray-400 text-xs">Without Capital Caps:</span>
                                         <button type="button" onClick={() => setPassword('lower123!')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs">lower123!</button>
                                     </li>
                                 </ul>
