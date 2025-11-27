@@ -24,11 +24,18 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
         let isValid = true;
 
         // Email validation
-        if (!email) {
+        // Email validation
+        if (!email.trim()) {
             newErrors.email = 'Email is required';
             isValid = false;
         } else if (!/\S+@\S+\.\S+/.test(email)) {
-            newErrors.email = 'Please enter a valid email address';
+            if (!email.includes('@')) {
+                newErrors.email = "Email must contain '@' symbol";
+            } else if (email.indexOf('@') === email.length - 1) {
+                newErrors.email = "Email must contain a domain name";
+            } else {
+                newErrors.email = 'Please enter a valid email address';
+            }
             isValid = false;
         }
 
@@ -83,8 +90,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                     onLogin(email);
                 }, 1500);
             }, 1000);
-        } else {
-            setToast({ show: true, message: 'Please check the form for errors.', type: 'error' });
         }
     };
 
@@ -127,10 +132,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                                     <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
                                         <span className="text-gray-400 text-xs">Blank Email:</span>
                                         <button type="button" onClick={() => setEmail(' ')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs italic text-gray-500">(space)</button>
-                                    </li>
-                                    <li className="grid grid-cols-[110px_1fr] gap-2 items-center">
-                                        <span className="text-gray-400 text-xs text-red-400">Login Failure:</span>
-                                        <button type="button" onClick={() => setEmail('fail@error.com')} className="font-mono bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded text-left truncate transition-colors text-xs text-red-300" title="fail@error.com">fail@error.com</button>
                                     </li>
                                 </ul>
                             </div>
