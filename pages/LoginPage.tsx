@@ -70,6 +70,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToSignup }) =>
                     onLogin(email);
                 }, 1500);
             }, 1000);
+        } else {
+            setToast({ show: true, message: 'Please check the form for errors.', type: 'error' });
         }
     };
 

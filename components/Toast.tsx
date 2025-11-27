@@ -22,7 +22,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, isVisible, onClose, durati
     if (!isVisible) return null;
 
     return (
-        <div className="fixed top-5 right-5 z-50 transition-all duration-300 transform translate-y-0 opacity-100">
+        <div className="fixed bottom-5 right-5 z-50 transition-all duration-300 transform translate-y-0 opacity-100">
             <Alert type={type} message={message} onClose={onClose} className="shadow-lg min-w-[300px]" />
         </div>
     );
